@@ -1,0 +1,30 @@
+{
+  "name": "image-signature",
+  "version": "0.1.0",
+  "description": "Generates a hash for a canvas image that can be used to identify duplicates",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/wmsmacdonald/image-signature-js.git"
+  },
+  "keywords": [
+    "hash",
+    "pure",
+    "reverse",
+    "search"
+  ],
+  "author": "William MacDonald",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/wmsmacdonald/image-signature-js/issues"
+  },
+  "homepage": "https://github.com/wmsmacdonald/image-signature-js#readme",
+  "devDependencies": {
+    "assert": "^1.4.1",
+    "canvas": "^1.6.2",
+    "mocha": "^3.2.0"
+  }
+}
