@@ -1,6 +1,6 @@
-'use strict';
+'use strict'
 
-const imageSignature = require('./lib/image_signature.js');
+const imageSignature = require('./lib/image_signature.js')
 
-module.exports = imageSignature.imageSignature;
+module.exports = imageSignature.imageSignature
 
