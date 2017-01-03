@@ -33,6 +33,7 @@
   },
   "standard": {
     "ignore": [
+      "bower_components"
     ]
   }
 }
