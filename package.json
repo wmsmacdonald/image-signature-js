@@ -4,7 +4,7 @@
   "description": "Generates a hash for a canvas image that can be used to identify duplicates",
   "main": "index.js",
   "scripts": {
-    "test": "standard && mocha"
+    "test": "mocha"
   },
   "repository": {
     "type": "git",
