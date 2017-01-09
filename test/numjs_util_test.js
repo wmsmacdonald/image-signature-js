@@ -33,5 +33,13 @@ describe('njUtil', function() {
       assert(nj.equal(diff, expected))
     })
   })
+  describe('cumsum', function() {
+    it('should return the correct array for a flat array', function() {
+      const arr = nj.array([[1, 2, 3], [4, 5, 6]])
+      const cumsum = njUtil.cumsum(arr)
+      const expected = nj.array([1, 3, 6, 10, 15, 21])
+      assert(nj.equal(cumsum, expected))
+    })
+  })
 })
 
