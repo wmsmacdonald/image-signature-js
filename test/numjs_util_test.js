@@ -34,10 +34,16 @@ describe('njUtil', function() {
     })
   })
   describe('cumsum', function() {
-    it('should return the correct array for a flat array', function() {
+    it('should return the correct array with axis not given', function() {
       const arr = nj.array([[1, 2, 3], [4, 5, 6]])
       const cumsum = njUtil.cumsum(arr)
       const expected = nj.array([1, 3, 6, 10, 15, 21])
+      assert(nj.equal(cumsum, expected))
+    })
+    it('should return the correct array for axis = 0', function() {
+      const arr = nj.array([[1, 2, 3], [4, 5, 6]])
+      const cumsum = njUtil.cumsum(arr, 0)
+      const expected = nj.array([[1, 2, 3], [5, 7, 9]])
       assert(nj.equal(cumsum, expected))
     })
   })
