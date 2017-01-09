@@ -7,7 +7,7 @@ const _ = require('underscore')
 const njUtil = require('../lib/nj_util')
 
 describe('njUtil', function() {
-  describe('diff', function() {
+  describe('#diff', function() {
     it('should return the correct array for a 3x1 array', function() {
       const arr = nj.array([1, 2, 4, 7, 0])  
       const diff = njUtil.diff(arr)  
@@ -33,7 +33,7 @@ describe('njUtil', function() {
       assert(nj.equal(diff, expected))
     })
   })
-  describe('cumsum', function() {
+  describe('#cumsum', function() {
     it('should return the correct array with axis not given', function() {
       const arr = nj.array([[1, 2, 3], [4, 5, 6]])
       const cumsum = njUtil.cumsum(arr)
@@ -44,6 +44,12 @@ describe('njUtil', function() {
       const arr = nj.array([[1, 2, 3], [4, 5, 6]])
       const cumsum = njUtil.cumsum(arr, 0)
       const expected = nj.array([[1, 2, 3], [5, 7, 9]])
+      assert(nj.equal(cumsum, expected))
+    })
+    it('should return the correct array for axis = 1', function() {
+      const arr = nj.array([[1, 2, 3], [4, 5, 6]])
+      const cumsum = njUtil.cumsum(arr, 1)
+      const expected = nj.array([[1, 3, 6], [4, 9, 15]])
       assert(nj.equal(cumsum, expected))
     })
   })
