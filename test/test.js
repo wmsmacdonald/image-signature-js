@@ -4,6 +4,7 @@
 
 const assert = require('assert')
 const _ = require('underscore')
+const nj = require('../bower_components/numjs/dist/numjs')
 
 const imageSignature = require('../lib/image_signature')
 
@@ -38,6 +39,17 @@ describe('imageSignature', function () {
       let arr = _.range(9)
       let neighbors = imageSignature.getNeighbors(8, arr)
       assert(_.isEqual(neighbors, [4, 5, 7]))
+    })
+  })
+  describe('#autoCrop()', function () {
+    it('should not return a list with the element', function () {
+      const data = nj.multiply(nj.random([100, 150]), 255)
+      const image = nj.array(data.flatten().tolist().map(el => Math.floor(el))).reshape([100, 150])
+      const cropped = imageSignature.autoCrop(image, 10, 90) 
+      // should be about 90 in height
+      assert(Math.abs(cropped.shape[0] - 80) < 7)
+      // should be about 120 in width
+      assert(Math.abs(cropped.shape[1] - 120) < 10)
     })
   })
 })

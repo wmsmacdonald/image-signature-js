@@ -33,6 +33,32 @@ describe('njUtil', function() {
       assert(nj.equal(diff, expected))
     })
   })
+  describe('#sum', function() {
+    it('should return the correct array with axis not given', function() {
+      const arr = nj.array([0.5, 1.5])
+      const sum = njUtil.sum(arr)
+      const expected = 2.0
+      assert.strictEqual(sum, expected)
+    })
+    it('should return the correct array for 2D array', function() {
+      const arr = nj.array([[0, 1], [0, 5]])
+      const sum = njUtil.sum(arr)
+      const expected = 6
+      assert.strictEqual(sum, expected)
+    })
+    it('should return the correct array for 2D array with axis 0', function() {
+      const arr = nj.array([[0, 1], [0, 5]])
+      const sum = njUtil.sum(arr, 0)
+      const expected = nj.array([0, 6]) 
+      assert(nj.equal(sum, expected))
+    })
+    it('should return the correct array for 2D array with axis 1', function() {
+      const arr = nj.array([[0, 1], [0, 5]])
+      const sum = njUtil.sum(arr, 1)
+      const expected = nj.array([1, 5]) 
+      assert(nj.equal(sum, expected))
+    })
+  })
   describe('#cumsum', function() {
     it('should return the correct array with axis not given', function() {
       const arr = nj.array([[1, 2, 3], [4, 5, 6]])
@@ -51,6 +77,18 @@ describe('njUtil', function() {
       const cumsum = njUtil.cumsum(arr, 1)
       const expected = nj.array([[1, 3, 6], [4, 9, 15]])
       assert(nj.equal(cumsum, expected))
+    })
+  })
+  describe('#searchsorted', function() {
+    it('should return the correct index for existing element', function() {
+      const arr = nj.array([1, 2, 3, 4, 5])
+      const index = njUtil.searchsorted(arr, 3)
+      assert.strictEqual(index, 2)
+    })
+    it('should return the correct index for non existing element', function() {
+      const arr = nj.array([1, 2, 3, 5])
+      const index = njUtil.searchsorted(arr, 4)
+      assert.strictEqual(index, 3)
     })
   })
 })
