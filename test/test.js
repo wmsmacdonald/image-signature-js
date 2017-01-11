@@ -9,11 +9,6 @@ const nj = require('../bower_components/numjs/dist/numjs')
 const imageSignature = require('../lib/image_signature')
 
 describe('imageSignature', function () {
-  describe('#autoCrop()', function() {
-    it('should return a NDArray', function() {
-    })
-  })
-  
   describe('#getNeighbors()', function () {
     it('should not return a list with the element', function () {
       let arr = [0, 1, 2, 3]
@@ -50,6 +45,23 @@ describe('imageSignature', function () {
       assert(Math.abs(cropped.shape[0] - 80) < 7)
       // should be about 120 in width
       assert(Math.abs(cropped.shape[1] - 120) < 10)
+    })
+  })
+  describe('#computeGridSquares()', function () {
+    it('should return the correct square for the top corner ', function () {
+      const image = nj.arange(1, 101).reshape(10,10)
+      const neighborGroups = imageSignature.computeGridSquares(image, 10, 10)
+      const expected = nj.array([1, 2, 3, 11, 12, 13, 21, 22, 23])
+      const result = neighborGroups.slice([0, 1],[0, 1]).flatten()
+      assert(nj.equal(result, expected))
+    })
+    it('should return the correct square for the middle', function () {
+      const image = nj.arange(1, 101).reshape(10,10)
+      const neighborGroups = imageSignature.computeGridSquares(image, 10, 10)
+      const expected = nj.array([1, 2, 11, 12, 0, 0, 0, 0, 0])
+      const result = neighborGroups.slice([4, 5],[4, 5]).flatten()
+      console.log(result.tolist())
+      assert(nj.equal(result, expected))
     })
   })
 })
