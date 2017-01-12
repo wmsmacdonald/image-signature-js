@@ -110,7 +110,6 @@ describe('njUtil', function() {
       const arr = nj.arange(1, 10).reshape(3, 3)
       const neighbors = njUtil.getNeighbors(arr, 0, 0, -1, 1, false)
       const expected = nj.array([2, 4, 5])
-      console.log(neighbors)
       assert(nj.equal(neighbors, expected))
     })
   })
