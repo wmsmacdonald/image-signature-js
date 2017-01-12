@@ -9,33 +9,6 @@ const nj = require('../bower_components/numjs/dist/numjs')
 const imageSignature = require('../lib/image_signature')
 
 describe('imageSignature', function () {
-  describe('#getNeighbors()', function () {
-    it('should not return a list with the element', function () {
-      let arr = [0, 1, 2, 3]
-      let neighbors = imageSignature.getNeighbors(1, arr)
-      assert.strictEqual(_.indexOf(neighbors, 1), -1)
-    })
-    it('should return the correct values for 3x3 with target at middle', function () {
-      let arr = _.range(9)
-      let neighbors = imageSignature.getNeighbors(4, arr)
-      assert(_.isEqual(neighbors, [0, 1, 2, 3, 5, 6, 7, 8]))
-    })
-    it('should return the correct values for 3x3 with target at top', function () {
-      let arr = _.range(9)
-      let neighbors = imageSignature.getNeighbors(1, arr)
-      assert(_.isEqual(neighbors, [0, 2, 3, 4, 5]))
-    })
-    it('should return the correct values for 3x3 with target at left', function () {
-      let arr = _.range(9)
-      let neighbors = imageSignature.getNeighbors(3, arr)
-      assert(_.isEqual(neighbors, [0, 1, 4, 6, 7]))
-    })
-    it('should return the correct values for 3x3 with target at bottom right', function () {
-      let arr = _.range(9)
-      let neighbors = imageSignature.getNeighbors(8, arr)
-      assert(_.isEqual(neighbors, [4, 5, 7]))
-    })
-  })
   describe('#autoCrop()', function () {
     it('should not return a list with the element', function () {
       const data = nj.multiply(nj.random([100, 150]), 255)
@@ -50,7 +23,7 @@ describe('imageSignature', function () {
   describe('#computeGridAverages()', function () {
     it('should return the correct square for the top right corner ', function () {
       const image = nj.arange(1, 101).reshape(10,10)
-      const neighborGroups = imageSignature.computeGridAverages(image, 10, 10, 2)
+      const neighborGroups = imageSignature.computeGridAverages(image, 10, 10)
       // square should be [1, 2, 11, 12]
       const expected = (1 + 2 + 11 + 12) / 4
       const result = neighborGroups.get(0,0)

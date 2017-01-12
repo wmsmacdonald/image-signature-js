@@ -91,5 +91,28 @@ describe('njUtil', function() {
       assert.strictEqual(index, 3)
     })
   })
+  describe('#vectorize()', function() {
+    it('should return the correct array', function() {
+      const arr = nj.array([[1, 2], [3, 4]])
+      const result = njUtil.vectorize(arr, (e, i) => e + i)
+      const expected = nj.array([[1, 3], [5, 7]])
+      assert(nj.equal(result, expected))
+    })
+  })
+  describe('#getNeighbors()', function () {
+    it('should return the correct neighbors for top left including itself', function () {
+      const arr = nj.arange(1, 10).reshape(3, 3)
+      const neighbors = njUtil.getNeighbors(arr, 0, 0, -1, 1, true)
+      const expected = nj.array([1, 2, 4, 5])
+      assert(nj.equal(neighbors, expected))
+    })
+    it('should return the correct neighbors for top left excluding itself', function () {
+      const arr = nj.arange(1, 10).reshape(3, 3)
+      const neighbors = njUtil.getNeighbors(arr, 0, 0, -1, 1, false)
+      const expected = nj.array([2, 4, 5])
+      console.log(neighbors)
+      assert(nj.equal(neighbors, expected))
+    })
+  })
 })
 
