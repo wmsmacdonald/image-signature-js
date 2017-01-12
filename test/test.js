@@ -47,27 +47,30 @@ describe('imageSignature', function () {
       assert(Math.abs(cropped.shape[1] - 120) < 10)
     })
   })
-  describe('#computeGridSquares()', function () {
+  describe('#computeGridAverages()', function () {
     it('should return the correct square for the top right corner ', function () {
       const image = nj.arange(1, 101).reshape(10,10)
-      const neighborGroups = imageSignature.computeGridSquares(image, 10, 10, 2)
-      const expected = nj.array([1, 2, 11, 12])
-      const result = neighborGroups.slice([0, 1],[0, 1]).flatten()
-      assert(nj.equal(result, expected))
+      const neighborGroups = imageSignature.computeGridAverages(image, 10, 10, 2)
+      // square should be [1, 2, 11, 12]
+      const expected = (1 + 2 + 11 + 12) / 4
+      const result = neighborGroups.get(0,0)
+      assert.strictEqual(result, expected)
     })
     it('should return the correct square for the middle', function () {
       const image = nj.arange(1, 101).reshape(10,10)
-      const neighborGroups = imageSignature.computeGridSquares(image, 10, 10)
-      const expected = nj.array([45, 46, 55, 56])
-      const result = neighborGroups.slice([4, 5],[4, 5]).flatten()
-      assert(nj.equal(result, expected))
+      const neighborGroups = imageSignature.computeGridAverages(image, 10, 10)
+      // square should be [45, 46, 55, 56]
+      const expected = (45 + 46 + 55 + 56) / 4
+      const result = neighborGroups.get(4, 4)
+      assert.strictEqual(result, expected)
     })
     it('should return the correct square for the bottom right corner', function () {
       const image = nj.arange(1, 101).reshape(10,10)
-      const neighborGroups = imageSignature.computeGridSquares(image, 10, 10)
-      const expected = nj.array([89, 90, 99, 100])
-      const result = neighborGroups.slice([8, 9],[8, 9]).flatten()
-      assert(nj.equal(result, expected))
+      const neighborGroups = imageSignature.computeGridAverages(image, 10, 10)
+      // square should be [89, 90, 99, 100]
+      const expected = (89 + 90 + 99 + 100) / 4
+      const result = neighborGroups.get(8, 8)
+      assert.strictEqual(result, expected)
     })
   })
 })

@@ -7,7 +7,7 @@ const _ = require('underscore')
 const njUtil = require('../lib/nj_util')
 
 describe('njUtil', function() {
-  describe('#diff', function() {
+  describe('#diff()', function() {
     it('should return the correct array for a 3x1 array', function() {
       const arr = nj.array([1, 2, 4, 7, 0])  
       const diff = njUtil.diff(arr)  
@@ -33,7 +33,7 @@ describe('njUtil', function() {
       assert(nj.equal(diff, expected))
     })
   })
-  describe('#sum', function() {
+  describe('#sum()', function() {
     it('should return the correct array with axis not given', function() {
       const arr = nj.array([0.5, 1.5])
       const sum = njUtil.sum(arr)
@@ -59,7 +59,7 @@ describe('njUtil', function() {
       assert(nj.equal(sum, expected))
     })
   })
-  describe('#cumsum', function() {
+  describe('#cumsum()', function() {
     it('should return the correct array with axis not given', function() {
       const arr = nj.array([[1, 2, 3], [4, 5, 6]])
       const cumsum = njUtil.cumsum(arr)
@@ -79,7 +79,7 @@ describe('njUtil', function() {
       assert(nj.equal(cumsum, expected))
     })
   })
-  describe('#searchsorted', function() {
+  describe('#searchsorted()', function() {
     it('should return the correct index for existing element', function() {
       const arr = nj.array([1, 2, 3, 4, 5])
       const index = njUtil.searchsorted(arr, 3)
