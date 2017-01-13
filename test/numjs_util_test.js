@@ -112,6 +112,52 @@ describe('njUtil', function() {
       const expected = nj.array([2, 4, 5])
       assert(nj.equal(neighbors, expected))
     })
+    it('should return the correct neighbors for center including itself', function () {
+      const arr = nj.arange(1, 10).reshape(3, 3)
+      const neighbors = njUtil.getNeighbors(arr, 1, 1, -1, 1, true)
+      const expected = nj.array([1, 2, 3, 4, 5, 6, 7, 8, 9])
+      assert(nj.equal(neighbors, expected))
+    })
+    it('should return the correct neighbors for center excluding itself', function () {
+      const arr = nj.arange(1, 10).reshape(3, 3)
+      const neighbors = njUtil.getNeighbors(arr, 1, 1, -1, 1, false)
+      const expected = nj.array([1, 2, 3, 4, 6, 7, 8, 9])
+      assert(nj.equal(neighbors, expected))
+    })
+    it('should return the correct neighbors for d = 2 bottom right including itself', function () {
+      const arr = nj.arange(1, 17).reshape(4, 4)
+      const neighbors = njUtil.getNeighbors(arr, 3, 3, -2, 2, true)
+      const expected = nj.array([6, 7, 8, 10, 11, 12, 14, 15, 16])
+      assert(nj.equal(neighbors, expected))
+    })
+    it('should return the correct neighbors for d = 2 bottom left excluding itself', function () {
+      const arr = nj.arange(1, 17).reshape(4, 4)
+      const neighbors = njUtil.getNeighbors(arr, 3, 0, -2, 2, false)
+      const expected = nj.array([5, 6, 7, 9, 10, 11, 14, 15])
+      assert(nj.equal(neighbors, expected))
+    })
+  })
+  describe('#percentile()', function () {
+    it('should return the correct percentile where the answer is not interpolated', function () {
+      const arr = nj.array([1, 2, 3])
+      const median = njUtil.percentile(arr, 50)
+      assert.strictEqual(median, 2)
+    })
+    it('should return the correct percentile where the answer is interpolated', function () {
+      const arr = nj.array([1, 2, 3, 4]) 
+      const median = njUtil.percentile(arr, 50)
+      assert.strictEqual(median, 2.5)
+    })
+    it('should return the correct percentile where the array is empty', function () {
+      const arr = nj.array([]) 
+      const median = njUtil.percentile(arr, 50)
+      assert.strictEqual(median, null)
+    })
+    it('should return the correct percentile where the array has one  element', function () {
+      const arr = nj.array([1]) 
+      const median = njUtil.percentile(arr, 25)
+      assert.strictEqual(median, 1)
+    })
   })
 })
 

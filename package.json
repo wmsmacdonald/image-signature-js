@@ -29,6 +29,8 @@
     "standard": "^8.6.0"
   },
   "dependencies": {
+    "get-image-data": "^2.2.1",
+    "get-pixels": "^3.3.0",
     "underscore": "^1.8.3"
   },
   "standard": {

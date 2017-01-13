@@ -2,13 +2,25 @@
 
 'use strict'
 
+const fs = require('fs')
+
 const assert = require('assert')
 const _ = require('underscore')
 const nj = require('../bower_components/numjs/dist/numjs')
+const image = require('get-image-data')
 
 const imageSignature = require('../lib/image_signature')
 
 describe('imageSignature', function () {
+  describe('#generate()', function () {
+    it('return array', function (cb) {
+      const buf = fs.readFileSync(__dirname + '/fixtures/Reina_restaurant_Istanbul.jpg')
+      image(buf, (err, imageData) => {
+        if (err) return cb(err)
+        //const signature = imageSignature.generate(imageData)
+      })
+    })
+  })
   describe('#autoCrop()', function () {
     it('should not return a list with the element', function () {
       const data = nj.multiply(nj.random([100, 150]), 255)
@@ -18,6 +30,28 @@ describe('imageSignature', function () {
       assert(Math.abs(cropped.shape[0] - 80) < 7)
       // should be about 120 in width
       assert(Math.abs(cropped.shape[1] - 120) < 10)
+    })
+  })
+  describe('#normalize()', function () {
+    it('should return -2 for much darker', function () {
+      const result = imageSignature.normalize(2, 50, -50, -72)
+      assert.strictEqual(result, -2)
+    })
+    it('should return -1 for darker', function () {
+      const result = imageSignature.normalize(2, 50, -50, -23)
+      assert.strictEqual(result, -1)
+    })
+    it('should return 0 for same', function () {
+      const result = imageSignature.normalize(2, 50, -50, 1)
+      assert.strictEqual(result, 0)
+    })
+    it('should return 1 for lighter', function () {
+      const result = imageSignature.normalize(2, 50, -50, 13)
+      assert.strictEqual(result, 1)
+    })
+    it('should return 2 for much lighter', function () {
+      const result = imageSignature.normalize(2, 50, -50, 64)
+      assert.strictEqual(result, 2)
     })
   })
   describe('#computeGridAverages()', function () {
