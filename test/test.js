@@ -14,15 +14,18 @@ const imageSignature = require('../lib/image_signature')
 
 describe('imageSignature', function () {
   describe('#generate()', function () {
-    it('return array', function () {
-      const img = nj.images.read(__dirname + '/fixtures/spaceship.png')
+    it('return signature for large jpg image', function () {
+      const img = nj.images.read(__dirname + '/fixtures/Reina_restaurant_Istanbul.jpg')
+      
       const imageData = {
         height: img.shape[0],
         width: img.shape[1],
         data: img.flatten().tolist()
       }
+      this.timeout(20000)
       const signature = imageSignature.generate(imageData)
       signature.forEach(comparisonGroup => assert(comparisonGroup.length <= 8))
+      assert.strictEqual(signature.length, 81)
     })
   })
   describe('#autoCrop()', function () {
