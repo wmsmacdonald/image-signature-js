@@ -26,6 +26,7 @@
     "assert": "^1.4.1",
     "canvas": "^1.6.2",
     "mocha": "^3.2.0",
+    "numjs": "^0.12.3",
     "standard": "^8.6.0"
   },
   "dependencies": {
