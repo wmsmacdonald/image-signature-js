@@ -1,7 +1,7 @@
 {
   "name": "image-signature",
   "version": "0.1.0",
-  "description": "Generates a hash for a canvas image that can be used to identify duplicates",
+  "description": "Pure JS library that hashes images that to identify resized and minorly cropped pictures",
   "main": "index.js",
   "scripts": {
     "test": "mocha",
