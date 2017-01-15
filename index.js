@@ -2,5 +2,9 @@
 
 const imageSignature = require('./lib/image_signature.js')
 
-module.exports = imageSignature.imageSignature
+module.exports = {
+  generate: imageSignature.generate,
+  distance: imageSignature.distance
+}
+
 
