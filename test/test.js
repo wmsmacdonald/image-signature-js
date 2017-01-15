@@ -21,7 +21,7 @@ describe('imageSignature', function () {
         width: img.shape[1],
         data: img.flatten().tolist()
       }
-      const signature = imageSignature.generate(imageData, 3)
+      const signature = imageSignature.generate(imageData)
       signature.forEach(comparisonGroup => assert(comparisonGroup.length <= 8))
       assert.strictEqual(signature.length, 81)
     })
@@ -39,9 +39,9 @@ describe('imageSignature', function () {
         width: large.shape[1],
         data: large.flatten().tolist()
       }
-      const signatureSmall = imageSignature.generate(imageDataSmall, 3)
+      const signatureSmall = imageSignature.generate(imageDataSmall)
       this.timeout(20000)
-      const signatureLarge = imageSignature.generate(imageDataLarge, 3)
+      const signatureLarge = imageSignature.generate(imageDataLarge)
       const distance = imageSignature.distance(signatureSmall, signatureLarge)
       assert(distance < 0.4)
     })
