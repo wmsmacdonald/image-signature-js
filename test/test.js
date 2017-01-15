@@ -6,7 +6,6 @@ const fs = require('fs')
 
 const assert = require('assert')
 const _ = require('underscore')
-const njPure = require('../bower_components/numjs/dist/numjs')
 const nj = require('numjs')
 const image = require('get-image-data')
 
@@ -49,8 +48,8 @@ describe('imageSignature', function () {
   })
   describe('#autoCrop()', function () {
     it('should not return a list with the element', function () {
-      const data = njPure.multiply(njPure.random([100, 150]), 255)
-      const image = njPure.array(data.flatten().tolist().map(el => Math.floor(el))).reshape([100, 150])
+      const data = nj.multiply(nj.random([100, 150]), 255)
+      const image = nj.array(data.flatten().tolist().map(el => Math.floor(el))).reshape([100, 150])
       const cropped = imageSignature.autoCrop(image, 10, 90) 
       // should be about 90 in height
       assert(Math.abs(cropped.shape[0] - 80) < 7)
