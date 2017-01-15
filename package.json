@@ -1,6 +1,6 @@
 {
   "name": "image-signature",
-  "version": "0.1.3",
+  "version": "0.1.2",
   "description": "Pure JS library that hashes images in order to compare their similarity",
   "main": "index.js",
   "scripts": {
@@ -31,7 +31,6 @@
     "standard": "^8.6.0"
   },
   "dependencies": {
-    "numjs": "^0.12.3",
     "underscore": "^1.8.3"
   },
   "standard": {
