@@ -1,6 +1,6 @@
 'use strict'
 
-const nj = require('numjs')
+const nj = require('../bower_components/numjs/dist/numjs')
 const assert = require('assert')
 const _ = require('underscore')
 
