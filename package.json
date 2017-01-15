@@ -4,7 +4,8 @@
   "description": "Generates a hash for a canvas image that can be used to identify duplicates",
   "main": "index.js",
   "scripts": {
-    "test": "mocha"
+    "test": "mocha",
+    "standard": "standard"
   },
   "repository": {
     "type": "git",
@@ -30,8 +31,6 @@
     "standard": "^8.6.0"
   },
   "dependencies": {
-    "get-image-data": "^2.2.1",
-    "get-pixels": "^3.3.0",
     "underscore": "^1.8.3"
   },
   "standard": {

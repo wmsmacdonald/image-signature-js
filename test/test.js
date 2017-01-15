@@ -14,18 +14,37 @@ const imageSignature = require('../lib/image_signature')
 
 describe('imageSignature', function () {
   describe('#generate()', function () {
-    it('return signature for large jpg image', function () {
-      const img = nj.images.read(__dirname + '/fixtures/Reina_restaurant_Istanbul.jpg')
+    it('return signature for small jpg image', function () {
+      const img = nj.images.read(__dirname + '/fixtures/istanbul_small.jpg')
       
       const imageData = {
         height: img.shape[0],
         width: img.shape[1],
         data: img.flatten().tolist()
       }
-      this.timeout(20000)
       const signature = imageSignature.generate(imageData)
       signature.forEach(comparisonGroup => assert(comparisonGroup.length <= 8))
       assert.strictEqual(signature.length, 81)
+    })
+    it('distance between small and large should be little', function () {
+      const small = nj.images.read(__dirname + '/fixtures/istanbul_small.jpg')
+      const large = nj.images.read(__dirname + '/fixtures/istanbul_large.jpg')
+      
+      const imageDataSmall = {
+        height: small.shape[0],
+        width: small.shape[1],
+        data: small.flatten().tolist()
+      }
+      const imageDataLarge = {
+        height: large.shape[0],
+        width: large.shape[1],
+        data: large.flatten().tolist()
+      }
+      const signatureSmall = imageSignature.generate(imageDataSmall)
+      this.timeout(20000)
+      const signatureLarge = imageSignature.generate(imageDataLarge)
+      const distance = imageSignature.distance(signatureSmall, signatureLarge)
+      assert(distance < 0.4)
     })
   })
   describe('#autoCrop()', function () {
@@ -85,6 +104,15 @@ describe('imageSignature', function () {
       const expected = 100
       const result = neighborGroups.get(8, 8)
       assert.strictEqual(result, expected)
+    })
+  })
+  describe('#distance()', function () {
+    it('should return the correct distance between two signatures', function () {
+      const s1 = [[2, 3], [1, 1], [1]] // ||s1|| = 4
+      const s2 = [[4, 2], [1, 2], [1]] // ||s2|| = sqrt(26)
+      const distance = imageSignature.distance(s1, s2)
+      const expected = Math.sqrt(4 + 1 + 0 + 1 + 0) / (4 + Math.sqrt(26))
+      assert.strictEqual(distance, expected)
     })
   })
 })
