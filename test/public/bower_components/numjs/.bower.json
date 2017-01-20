@@ -1,0 +1,51 @@
+{
+  "name": "numjs",
+  "version": "0.12.4",
+  "description": "Like NumPy, in JavaScript",
+  "main": "dist/numjs.js",
+  "author": "Nicolas Panel",
+  "license": "MIT",
+  "keywords": [
+    "ndarray",
+    "array",
+    "multi",
+    "multidimensional",
+    "dimension",
+    "higher",
+    "image",
+    "volume",
+    "webgl",
+    "tensor",
+    "matrix",
+    "linear",
+    "algebra",
+    "science",
+    "numerical",
+    "computing",
+    "stride",
+    "shape",
+    "numpy"
+  ],
+  "homepage": "https://github.com/nicolaspanel/numjs",
+  "moduleType": [
+    "globals",
+    "node"
+  ],
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "data"
+  ],
+  "_release": "0.12.4",
+  "_resolution": {
+    "type": "version",
+    "tag": "v0.12.4",
+    "commit": "d1f5af3d45ff5f7d1176008150ba6daaba227e11"
+  },
+  "_source": "https://github.com/nicolaspanel/numjs.git",
+  "_target": "^0.12.4",
+  "_originalSource": "numjs",
+  "_direct": true
+}

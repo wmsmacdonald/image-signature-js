@@ -5,7 +5,9 @@
   "main": "index.js",
   "scripts": {
     "test": "mocha",
-    "standard": "standard"
+    "standard": "standard",
+    "test-browser": "node ./test/test_browser.js",
+    "build-browser": "browserify index.js -o test/public/image_signature.js"
   },
   "repository": {
     "type": "git",
@@ -25,12 +27,14 @@
   "homepage": "https://github.com/wmsmacdonald/image-signature-js#readme",
   "devDependencies": {
     "assert": "^1.4.1",
-    "canvas": "^1.6.2",
+    "express": "^4.14.0",
     "mocha": "^3.2.0",
     "numjs": "^0.12.3",
+    "open": "0.0.5",
     "standard": "^8.6.0"
   },
   "dependencies": {
+    "numjs": "^0.12.4",
     "underscore": "^1.8.3"
   },
   "standard": {
