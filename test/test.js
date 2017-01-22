@@ -13,8 +13,7 @@ const imageSignature = require('../lib/image_signature')
 describe('imageSignature', function () {
   describe('#generate()', function () {
     it('return signature for small jpg image', function () {
-      const img = nj.images.read(__dirname + '/fixtures/istanbul_small.jpg')
-      
+      const img = addAlphas(nj.images.read(__dirname + '/fixtures/istanbul_small.jpg'))
       const imageData = {
         height: img.shape[0],
         width: img.shape[1],
@@ -24,25 +23,44 @@ describe('imageSignature', function () {
       signature.forEach(comparisonGroup => assert(comparisonGroup.length <= 8))
       assert.strictEqual(signature.length, 81)
     })
-    it('distance between small and large should be little', function () {
-      const small = nj.images.read(__dirname + '/fixtures/istanbul_small.jpg')
-      const large = nj.images.read(__dirname + '/fixtures/istanbul_large.jpg')
+    it('distance between small and medium should be little', function () {
+      const small = addAlphas(nj.images.read(__dirname + '/fixtures/istanbul_small.jpg'))
+      const medium = addAlphas(nj.images.read(__dirname + '/fixtures/istanbul_medium.jpg'))
       
       const imageDataSmall = {
         height: small.shape[0],
         width: small.shape[1],
         data: small.flatten().tolist()
       }
-      const imageDataLarge = {
-        height: large.shape[0],
-        width: large.shape[1],
-        data: large.flatten().tolist()
+      const imageDataMedium = {
+        height: medium.shape[0],
+        width: medium.shape[1],
+        data: medium.flatten().tolist()
       }
       const signatureSmall = imageSignature.generate(imageDataSmall)
       this.timeout(20000)
-      const signatureLarge = imageSignature.generate(imageDataLarge)
-      const distance = imageSignature.distance(signatureSmall, signatureLarge)
+      const signatureMedium = imageSignature.generate(imageDataMedium)
+      const distance = imageSignature.distance(signatureSmall, signatureMedium)
       assert(distance < 0.4)
+    })
+    it('distance between different images should be large', function () {
+      const istanbul = addAlphas(nj.images.read(__dirname + '/fixtures/istanbul_medium.jpg'))
+      const spaceship = addAlphas(nj.images.read(__dirname + '/fixtures/spaceship.jpg'))
+      
+      const imageDataIstanbul = {
+        height: istanbul.shape[0],
+        width: istanbul.shape[1],
+        data: istanbul.flatten().tolist()
+      }
+      const imageDataSpaceship = {
+        height: spaceship.shape[0],
+        width: spaceship.shape[1],
+        data: spaceship.flatten().tolist()
+      }
+      const signatureIstanbul = imageSignature.generate(imageDataIstanbul)
+      const signatureSpaceship = imageSignature.generate(imageDataSpaceship)
+      const distance = imageSignature.distance(signatureIstanbul, signatureSpaceship)
+      assert(distance > 0.4)
     })
   })
   describe('#autoCrop()', function () {
@@ -115,3 +133,7 @@ describe('imageSignature', function () {
   })
 })
 
+function addAlphas(img) {
+  const zeros = nj.zeros([img.shape[0], img.shape[1], 1])
+  return nj.concatenate(img, zeros)
+}

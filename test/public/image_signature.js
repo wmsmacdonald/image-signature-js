@@ -68,10 +68,16 @@ function generate (imageData) {
   const numChannels = imageData.data.length / (imageData.height * imageData.width)
   const rgb = img.reshape(imageData.height, imageData.width, 4)
 
-  const flattened = rgb.selection.data[0]
-  console.log(flattened)
+  let flattened;
+  // get raw array from ndarray since numjs is buggy in the browser
+  if (rgb.selection.data.length === imageData.height * imageData.width * 4) {
+    flattened = rgb.selection.data
+  }
+  else {
+    flattened = rgb.selection.data[0]
+  }
+
   const gray = nj.array(grayscale(flattened))
-  console.log(gray)
   const reshaped = gray.reshape(imageData.height, imageData.width)
 
   const cropped = autoCrop(reshaped, 10, 90)
@@ -138,8 +144,11 @@ function computeGridAverages(imageArray, numBlocksHigh, numBlocksWide) {
   const upperOffset = Math.ceil((P - 1) / 2)
   const lowerOffset = -Math.floor((P - 1) / 2)
 
-  const gridYs = _.map(_.range(squareHeight, imageArray.shape[0], squareHeight), Math.floor)
-  const gridXs = _.map(_.range(squareWidth, imageArray.shape[1], squareWidth), Math.floor)
+  // divide height into 10 segments and make range from the points
+  const gridYs = _.map(_.range(squareHeight,
+    imageArray.shape[0] - squareHeight / 2 /* to avoid floating point error and make sure it ends at the 9th number */,
+    squareHeight), Math.floor)
+  const gridXs = _.map(_.range(squareWidth, imageArray.shape[1] - squareWidth / 2, squareWidth), Math.floor)
 
   const flatArray = imageArray.flatten().tolist()
 

@@ -1,13 +1,13 @@
 {
   "name": "image-signature",
-  "version": "0.1.1",
+  "version": "0.3.2",
   "description": "Pure JS library that hashes images in order to compare their similarity",
   "main": "index.js",
   "scripts": {
     "test": "mocha",
     "standard": "standard",
     "test-browser": "node ./test/test_browser.js",
-    "build-browser": "browserify index.js -o test/public/image_signature.js"
+    "build-browser": "browserify index.js -o test/public/image_signature.js && cp test/public/image_signature.js dist/"
   },
   "repository": {
     "type": "git",
